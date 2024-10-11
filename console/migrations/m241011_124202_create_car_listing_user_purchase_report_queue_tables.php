@@ -24,6 +24,7 @@ class m241011_124202_create_car_listing_user_purchase_report_queue_tables extend
         ]);
 
         $this->createTable('userPurchase', [
+            'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'car_id' => $this->integer()->notNull(),
             'date' => $this->timestamp()->notNull(),

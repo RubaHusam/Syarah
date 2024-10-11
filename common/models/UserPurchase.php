@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "UserPurchase".
  *
+ * @property int $id
  * @property int $user_id
  * @property int $car_id
  * @property string $date
@@ -44,6 +45,7 @@ class UserPurchase extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'user_id' => 'User ID',
             'car_id' => 'Car ID',
             'date' => 'Date',

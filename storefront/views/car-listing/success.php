@@ -30,9 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <strong>Status:</strong> <?= Html::encode($model->status) ?>
         </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-    <h1 class="text-success text-center">You have successfully Purchased</h1>
-</div>
+    <div class="d-flex justify-content-center align-items-center" style="height: 30vh;">
+        <h1 class="text-success text-center">You have successfully Purchased</h1>
 
+    </div>
+    <div class="d-flex justify-content-end">
+
+        <?= Html::a('Your Purchase', ['/user-purchase/index'], [
+            'class' => 'btn btn-danger',
+        ]) ?>
+    </div>
 
 </div>
