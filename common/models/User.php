@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
+ * @property string $role
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -31,8 +32,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     const ROLE_ADMIN = 'admin';
     const ROLE_BUYER = 'buyer';
-
-    public $role; 
 
 
     /**
