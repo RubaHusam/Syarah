@@ -101,3 +101,48 @@ a.desc:after {
 {
     text-decoration: none;
 }
+
+.custom-breadcrumbs {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+.form-group {
+    margin-top: 10px; 
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+
+.pagination {
+    display: flex; 
+    justify-content: end;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin-left: 5px; 
+}
+
+.pagination li a {
+    display: block;
+    padding: 5px 10px;
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-radius: 5px; 
+    text-decoration: none;
+    color: #007bff; 
+}
+
+.pagination li a:hover {
+    background-color: #e2e6ea; 
+}
+
+.pagination li.active a {
+    background-color: #007bff; 
+    color: white; 
+}

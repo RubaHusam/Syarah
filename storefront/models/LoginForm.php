@@ -1,7 +1,8 @@
 <?php
 
-namespace common\models;
+namespace storefront\models;
 
+use common\models\User;
 use Yii;
 use yii\base\Model;
 
@@ -71,7 +72,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findAdmin($this->username);
+            $this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;

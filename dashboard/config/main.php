@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-dashboard',
     'basePath' => dirname(__DIR__),
+    'defaultRoute' => 'car-listing/index',
     'controllerNamespace' => 'dashboard\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
@@ -37,14 +38,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];
