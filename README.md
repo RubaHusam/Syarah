@@ -31,7 +31,7 @@ DIRECTORY STRUCTURE
 common
     config/              contains shared configurations
     mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
+    models/              contains model classes used in both dashboard and storefront
     tests/               contains tests for common classes    
 console
     config/              contains console configurations
@@ -39,25 +39,25 @@ console
     migrations/          contains database migrations
     models/              contains console-specific model classes
     runtime/             contains files generated during runtime
-backend
+dashboard
     assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
+    config/              contains dashboard configurations
     controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
+    models/              contains dashboard-specific model classes
     runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
+    tests/               contains tests for dashboard application    
     views/               contains view files for the Web application
     web/                 contains the entry script and Web resources
-frontend
+storefront
     assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
+    config/              contains storefront configurations
     controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
+    models/              contains storefront-specific model classes
     runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
+    tests/               contains tests for storefront application
     views/               contains view files for the Web application
     web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
+    widgets/             contains storefront widgets
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```

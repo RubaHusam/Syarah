@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\tests;
+namespace storefront\tests;
 
 /**
  * Inherited Methods

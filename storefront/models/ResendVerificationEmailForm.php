@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace storefront\models;
 
 use Yii;
 use common\models\User;

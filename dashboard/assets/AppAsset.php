@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\assets;
+namespace dashboard\assets;
 
 use yii\web\AssetBundle;
 
 /**
- * Main backend application asset bundle.
+ * Main dashboard application asset bundle.
  */
 class AppAsset extends AssetBundle
 {

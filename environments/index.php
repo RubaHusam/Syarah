@@ -32,37 +32,37 @@ return [
     'Development' => [
         'path' => 'dev',
         'setWritable' => [
-            'backend/runtime',
-            'backend/web/assets',
+            'dashboard/runtime',
+            'dashboard/web/assets',
             'console/runtime',
-            'frontend/runtime',
-            'frontend/web/assets',
+            'storefront/runtime',
+            'storefront/web/assets',
         ],
         'setExecutable' => [
             'yii',
             'yii_test',
         ],
         'setCookieValidationKey' => [
-            'backend/config/main-local.php',
+            'dashboard/config/main-local.php',
             'common/config/codeception-local.php',
-            'frontend/config/main-local.php',
+            'storefront/config/main-local.php',
         ],
     ],
     'Production' => [
         'path' => 'prod',
         'setWritable' => [
-            'backend/runtime',
-            'backend/web/assets',
+            'dashboard/runtime',
+            'dashboard/web/assets',
             'console/runtime',
-            'frontend/runtime',
-            'frontend/web/assets',
+            'storefront/runtime',
+            'storefront/web/assets',
         ],
         'setExecutable' => [
             'yii',
         ],
         'setCookieValidationKey' => [
-            'backend/config/main-local.php',
-            'frontend/config/main-local.php',
+            'dashboard/config/main-local.php',
+            'storefront/config/main-local.php',
         ],
     ],
 ];

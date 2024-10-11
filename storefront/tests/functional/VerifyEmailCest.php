@@ -1,9 +1,9 @@
 <?php
 
-namespace frontend\tests\functional;
+namespace storefront\tests\functional;
 
 use common\fixtures\UserFixture;
-use frontend\tests\FunctionalTester;
+use storefront\tests\FunctionalTester;
 
 class VerifyEmailCest
 {

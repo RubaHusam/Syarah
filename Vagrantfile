@@ -18,8 +18,8 @@ if required_plugins_installed
 end
 
 domains = {
-  frontend: 'y2aa-frontend.test',
-  backend:  'y2aa-backend.test'
+  storefront: 'y2aa-storefront.test',
+  dashboard:  'y2aa-dashboard.test'
 }
 
 config = {
@@ -84,5 +84,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './vagrant/provision/always-as-root.sh', run: 'always'
 
   # post-install message (vagrant console)
-  config.vm.post_up_message = "Frontend URL: http://#{domains[:frontend]}\nBackend URL: http://#{domains[:backend]}"
+  config.vm.post_up_message = "storefront URL: http://#{domains[:storefront]}\ndashboard URL: http://#{domains[:dashboard]}"
 end

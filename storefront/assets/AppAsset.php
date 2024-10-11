@@ -1,11 +1,11 @@
 <?php
 
-namespace frontend\assets;
+namespace storefront\assets;
 
 use yii\web\AssetBundle;
 
 /**
- * Main frontend application asset bundle.
+ * Main storefront application asset bundle.
  */
 class AppAsset extends AssetBundle
 {
@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        
     ];
     public $depends = [
         'yii\web\YiiAsset',

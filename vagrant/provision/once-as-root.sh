@@ -11,7 +11,7 @@ readonly IP=$2
 
 info "Provision-script user: `whoami`"
 
-export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_storefront=noninteractive
 
 info "Configure timezone"
 timedatectl set-timezone ${timezone} --no-ask-password
