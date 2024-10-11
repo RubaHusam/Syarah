@@ -27,6 +27,7 @@ class SigninAdminController extends Controller
         $user->setPassword($password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->status = User::STATUS_ACTIVE;
         $user->role = User::ROLE_ADMIN;
 
         if ($user->save()) {
