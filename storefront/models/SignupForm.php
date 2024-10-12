@@ -58,7 +58,7 @@ class SignupForm extends Model
         $user->status = User::STATUS_ACTIVE;
         $user->role = User::ROLE_BUYER;
 
-        return $user->save() && $this->sendEmail($user);
+        return $user->save() ? $user : false;
     }
 
     /**
