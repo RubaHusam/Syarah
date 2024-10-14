@@ -4,12 +4,14 @@ namespace dashboard\controllers;
 
 use common\models\CarListing;
 use common\models\CarListingSearch;
+use common\models\Images;
 use common\models\ReportQueue;
 use dashboard\models\CreateCsvJob;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CarListingController implements the CRUD actions for CarListing model.
@@ -74,10 +76,11 @@ class CarListingController extends Controller
     {
         $searchModel = new CarListingSearch();
         $dataProvider = $searchModel->search($this->request->queryParams, 'admin');
-        $totalSales= $searchModel->totalSales($this->request->queryParams);
-        $mostPopularModels= $searchModel->mostSalesModels($this->request->queryParams);
-        $soldCars= $searchModel->soldCars($this->request->queryParams);
-        $availableCars= $searchModel->availableCars($this->request->queryParams);
+        $totalSales = $searchModel->totalSales($this->request->queryParams);
+        $mostPopularModels = $searchModel->mostSalesModels($this->request->queryParams);
+        $soldCars = $searchModel->soldCars($this->request->queryParams);
+        $availableCars = $searchModel->availableCars($this->request->queryParams);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -86,6 +89,7 @@ class CarListingController extends Controller
             'mostPopularModels' => $mostPopularModels,
             'soldCars' => $soldCars,
             'availableCars' => $availableCars,
+
         ]);
     }
 
@@ -97,8 +101,11 @@ class CarListingController extends Controller
      */
     public function actionView($id)
     {
+        $imageModel = Images::findAll(['car_id' => $id]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'imageModel' => $imageModel,
         ]);
     }
 
@@ -110,9 +117,37 @@ class CarListingController extends Controller
     public function actionCreate()
     {
         $model = new CarListing();
+        $imageModel = new Images();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $imageModel->imageFiles = UploadedFile::getInstances($imageModel, 'imageFiles');
+
+                $currentImageCount = Images::countImagesByCarListing($model->id);
+                $maxImages = 3;
+                foreach ($imageModel->imageFiles as $file) {
+
+                    if (!$file || !$file->tempName) {
+                        Yii::$app->session->setFlash('error', 'File upload failed.');
+                        continue;
+                    }
+
+                    if ($currentImageCount >= $maxImages)
+                        break;
+
+                    $image = new Images();
+                    $image->name = $file->baseName;
+                    $image->path = 'images/' . $file->baseName . '.' . $file->extension;
+                    $image->car_id = $model->id;
+
+                    if ($image->save()) {
+                        $absolutePath = Yii::getAlias('@storefront/web/images/') . $file->baseName . '.' . $file->extension;
+
+                        $file->saveAs($absolutePath);
+                        $currentImageCount++;
+                    }
+
+                }
                 $cache = Yii::$app->cache;
                 $cache->flush();
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -123,6 +158,7 @@ class CarListingController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'imageModel' => $imageModel,
         ]);
     }
 

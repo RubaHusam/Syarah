@@ -2,19 +2,27 @@
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'bootstrap' => [
         'queue',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+       
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'image/upload' => 'image/upload',
+            ],
+        ],
         // 'cache' => [
         //     'class' => \yii\caching\FileCache::class,
         // ],
         'cache' => [
             'class' => 'yii\redis\Cache',
-            'redis' => 'redis',  
+            'redis' => 'redis',
         ],
         'redis' => [
             'class' => 'yii\redis\Connection',
@@ -32,5 +40,5 @@ return [
             ],
         ],
     ],
-  
+
 ];

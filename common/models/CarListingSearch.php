@@ -20,7 +20,7 @@ class CarListingSearch extends CarListing
     {
         return [
             [['id', 'year'], 'integer'],
-            [['price','mileage'], 'number'],
+            [['price', 'mileage'], 'number'],
             [['make', 'model', 'title', 'description', 'status'], 'safe'],
             [['year_min', 'year_max', 'price_min', 'price_max'], 'integer'],
         ];
@@ -31,6 +31,8 @@ class CarListingSearch extends CarListing
         $query = CarListing::find();
         if ($user == 'user')
             $query->where(['status' => CarListing::STATUS_AVAILABLE]);
+
+        $query->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -104,14 +106,14 @@ class CarListingSearch extends CarListing
 
         $query = $this->filterDate($query);
         $query->andFilterWhere(['status' => CarListing::STATUS_SOLD]);
-        
-        $mostSalesModels = $query->select([ 'model', 'COUNT(*) AS sold_count'])
-        ->groupBy(['model'])
-        ->orderBy(['sold_count' => SORT_DESC])
-        ->limit(1)
-        ->asArray()
-        ->all();
-    
+
+        $mostSalesModels = $query->select(['model', 'COUNT(*) AS sold_count'])
+            ->groupBy(['model'])
+            ->orderBy(['sold_count' => SORT_DESC])
+            ->limit(1)
+            ->asArray()
+            ->all();
+
         return !empty($mostSalesModels) ? $mostSalesModels[0]['model'] : "";
     }
 

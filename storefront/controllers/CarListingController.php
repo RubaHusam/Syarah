@@ -4,6 +4,7 @@ namespace storefront\controllers;
 
 use common\models\CarListing;
 use common\models\CarListingSearch;
+use common\models\Images;
 use common\models\UserPurchase;
 use Yii;
 use yii\web\Controller;
@@ -39,8 +40,7 @@ class CarListingController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-       
+    {   
         $cache = Yii::$app->cache;
         $cacheKey = 'car_listing_' . md5(json_encode($this->request->queryParams));
         $dataProvider = $cache->get($cacheKey);
@@ -67,8 +67,11 @@ class CarListingController extends Controller
      */
     public function actionView($id)
     {
+        $imageModel = Images::findAll(['car_id' => $id]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'imageModel' => $imageModel,
         ]);
     }
 

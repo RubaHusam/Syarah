@@ -19,6 +19,13 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -28,53 +35,50 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <header class="navbar navbar-expand-md fixed-top bg-white shadow-sm">
-    <div class="container-fluid d-flex align-items-center justify-content-between header-padding">
-        <div class="d-flex align-items-center">
-            <a href="/" class="d-flex align-items-center">
-                <img 
-                    src="https://cdn-frontend-r2.syarah.com/prod/assets/images/logoN.svg" 
-                    alt="Logo" 
-                    height="40" 
-                    class="me-3" />
-            </a>
+        <div class="container-fluid d-flex align-items-center justify-content-between header-padding">
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center">
+                    <img src="https://cdn-frontend-r2.syarah.com/prod/assets/images/logoN.svg" alt="Logo" height="40"
+                        class="me-3" />
+                </a>
 
-            <?php
+                <?php
 
-            $menuItems = [
-                ['label' => 'Home', 'url' => ['/car-listing/index']],
-                ['label' => 'Your Purchase', 'url' => ['/user-purchase/index']],
-            ];
+                $menuItems = [
+                    ['label' => 'Home', 'url' => ['/car-listing/index']],
+                    ['label' => 'Your Purchase', 'url' => ['/user-purchase/index']],
+                ];
 
-            if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-            }
+                if (Yii::$app->user->isGuest) {
+                    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+                }
 
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav flex-row'], // Align items horizontally beside the logo
-                'items' => $menuItems,
-            ]);
-            ?>
-        </div>
-
-        <!-- Login/Logout Button on the Right -->
-        <div class="d-flex">
-            <?php
-            if (Yii::$app->user->isGuest) {
-                echo Html::a('Login', ['/site/login'], [
-                    'class' => 'btn btn-link text-decoration-none'
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav flex-row'], // Align items horizontally beside the logo
+                    'items' => $menuItems,
                 ]);
-            } else {
-                echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-link text-decoration-none']
-                    )
-                    . Html::endForm();
-            }
-            ?>
+                ?>
+            </div>
+
+            <!-- Login/Logout Button on the Right -->
+            <div class="d-flex">
+                <?php
+                if (Yii::$app->user->isGuest) {
+                    echo Html::a('Login', ['/site/login'], [
+                        'class' => 'btn btn-link text-decoration-none'
+                    ]);
+                } else {
+                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+                        . Html::submitButton(
+                            'Logout (' . Yii::$app->user->identity->username . ')',
+                            ['class' => 'btn btn-link text-decoration-none']
+                        )
+                        . Html::endForm();
+                }
+                ?>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
 
     <main role="main" class="flex-shrink-0">

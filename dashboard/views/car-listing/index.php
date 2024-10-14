@@ -52,14 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
                 [
                     'label' => 'Image',
-                    'format' => 'raw', // Enable raw HTML output
+                    'format' => 'raw', 
                     'value' => function (CarListing $model) {
-                                return Html::img('https://cdn.syarah.com/photos-thumbs/online-v1/0x960/online/posts/212675/orignal-1725530370-474.jpg', [
-                                    'alt' => 'Car Image: ' . Html::encode($model->title),
-                                    'class' => 'img-fluid rounded',
-                                    'style' => 'width: 100px; height: auto;', // Adjust size as needed
-                                ]);
-                            },
+                        $firstImage = $model->images ? Yii::$app->params['storefront'] . $model->images[0]->path : Yii::$app->params['storefront'] . 'images/logoN.png'; 
+        
+                        return Html::img($firstImage, [
+                            'alt' => 'Car Image: ' . Html::encode($model->title),
+                            'class' => 'img-fluid rounded',
+                            'style' => 'width: 100px; height: auto;', 
+                        ]);
+                    },
                 ],
                 'title',
                 'make',

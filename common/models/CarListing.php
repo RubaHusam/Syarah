@@ -81,4 +81,9 @@ class CarListing extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserPurchase::class, ['car_id' => 'id']);
     }
+
+    public function getImages()
+    {
+        return $this->hasMany(Images::class, ['car_id' => 'id']);
+    }
 }
