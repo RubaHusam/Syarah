@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 <div class="card mb-4" style="width: 200px; text-decoration: none; color: inherit;">
-    <a href="<?= Url::to(['view', 'id' => $model->id]) ?>">
+<a href="<?= Url::to(['view', 'id' => $model->id]) ?>" class="card-link">
         <img src="https://cdn.syarah.com/photos-thumbs/online-v1/0x960/online/posts/212675/orignal-1725530370-474.jpg" 
              class="card-img-top" alt="Default Car Image">
         <div class="card-body">
@@ -12,3 +12,4 @@ use yii\helpers\Url;
         </div>
     </a>
 </div>
+

@@ -9,8 +9,18 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        // 'cache' => [
+        //     'class' => \yii\caching\FileCache::class,
+        // ],
         'cache' => [
-            'class' => \yii\caching\FileCache::class,
+            'class' => 'yii\redis\Cache',
+            'redis' => 'redis',  
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
         ],
         'queue' => [
             'class' => \yii\queue\db\Queue::class,

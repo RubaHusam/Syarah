@@ -166,3 +166,9 @@ header img {
     padding-left: 150px;  
     padding-right: 150px; 
 }
+
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}

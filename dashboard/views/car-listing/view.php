@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <li class="list-group-item"><strong>Make:</strong> <?= Html::encode($model->make) ?></li>
             <li class="list-group-item"><strong>Model:</strong> <?= Html::encode($model->model) ?></li>
             <li class="list-group-item"><strong>Year:</strong> <?= Html::encode($model->year) ?></li>
-            <li class="list-group-item"><strong>Price:</strong> <?= Html::encode($model->price) ?></li>
-            <li class="list-group-item"><strong>Mileage:</strong> <?= Html::encode($model->mileage) ?></li>
+            <li class="list-group-item"><strong>Price:</strong> <?= Html::encode($model->price) ?>JOD</li>
+            <li class="list-group-item"><strong>Mileage:</strong> <?= Html::encode($model->mileage) ?>KM</li>
             <li class="list-group-item" style="<?= $model->status === CarListing::STATUS_SOLD ? 'color: red;' : '' ?>">
                 <strong>Status:</strong> <?= Html::encode($model->status) ?>
             </li>

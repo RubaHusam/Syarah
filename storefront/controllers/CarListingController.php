@@ -40,8 +40,18 @@ class CarListingController extends Controller
      */
     public function actionIndex()
     {
+       
+        $cache = Yii::$app->cache;
+        $cacheKey = 'car_listing_' . md5(json_encode($this->request->queryParams));
+        $dataProvider = $cache->get($cacheKey);
+
         $searchModel = new CarListingSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams,'user');
+
+        if ($dataProvider === false) {
+        
+            $dataProvider = $searchModel->search($this->request->queryParams, 'user');
+            $cache->set($cacheKey, $dataProvider, 600);
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -62,7 +72,7 @@ class CarListingController extends Controller
         ]);
     }
 
-      /**
+    /**
      * Displays a single CarListing model.
      * @param int $id ID
      * @return string
@@ -70,7 +80,7 @@ class CarListingController extends Controller
      */
     public function actionSuccess($id)
     {
-        $model = CarListing::findOne(['id' => $id,'status'=> CarListing::STATUS_SOLD]);
+        $model = CarListing::findOne(['id' => $id, 'status' => CarListing::STATUS_SOLD]);
 
         return $this->render('success', [
             'model' => $model
@@ -83,7 +93,7 @@ class CarListingController extends Controller
             return $this->redirect(['site/login']);
         }
 
-        $model =  $this->findModel($id);
+        $model = $this->findModel($id);
         $model->status = CarListing::STATUS_SOLD;
         $model->save();
 
@@ -97,11 +107,11 @@ class CarListingController extends Controller
         } else {
             return $this->redirect(['index']);
         }
-        
+
     }
 
 
-       /**
+    /**
      * Displays a single CarListing model.
      * @param int $id ID
      * @return string
@@ -115,7 +125,7 @@ class CarListingController extends Controller
     }
 
 
-   
+
     /**
      * Finds the CarListing model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -125,7 +135,7 @@ class CarListingController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = CarListing::findOne(['id' => $id,'status'=> CarListing::STATUS_AVAILABLE])) !== null) {
+        if (($model = CarListing::findOne(['id' => $id, 'status' => CarListing::STATUS_AVAILABLE])) !== null) {
             return $model;
         }
 

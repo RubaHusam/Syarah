@@ -43,7 +43,7 @@ class CarListingController extends Controller
     {
         $searchModel = new CarListingSearch();
         $reportModel = new ReportQueue();
-        $respons=$this->request->post();
+        $respons = $this->request->post();
 
         if ($respons) {
             $filteredData = $searchModel->searchForCSV($respons, 'admin');
@@ -105,6 +105,8 @@ class CarListingController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $cache = Yii::$app->cache;
+                $cache->flush();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -128,6 +130,8 @@ class CarListingController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $cache = Yii::$app->cache;
+            $cache->flush();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -27,47 +27,49 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
 
     <?= GridView::widget([
-    'dataProvider' => $dataProvider,
-    'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
-        'name',
-        [
-            'attribute' => 'status',
-            'format' => 'raw',
-            'value' => function (ReportQueue $model) {
-                $statusLabel = Html::encode($model->status);
-                $class = '';
-                switch ($model->status) {
-                    case ReportQueue::STATUS_FAILED:
-                        $class = 'text-danger';
-                        break;
-                    case ReportQueue::STATUS_COMPLETED:
-                        $class = 'text-success';
-                        break;
-                    default:
-                        $class = 'text-warning'; 
-                        break;
-                }
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'name',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function (ReportQueue $model) {
+                        $statusLabel = Html::encode($model->status);
+                        $class = '';
+                        switch ($model->status) {
+                            case ReportQueue::STATUS_FAILED:
+                                $class = 'text-danger';
+                                break;
+                            case ReportQueue::STATUS_COMPLETED:
+                                $class = 'text-success';
+                                break;
+                            default:
+                                $class = 'text-warning';
+                                break;
+                        }
 
-                return Html::tag('span', $statusLabel, ['class' => $class]);
-            },
-        ],
-        'error_note:ntext',
-        [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => '{download}', 
-            'buttons' => [
-                'download' => function ($url, ReportQueue $model) {
-                    return Html::a('Download', [$model->path], [
-                        'class' => 'btn btn-primary',
-                        'title' => 'Download File',
-                        'data-pjax' => '0', 
-                    ]);
-                },
+                        return Html::tag('span', $statusLabel, ['class' => $class]);
+                    },
+            ],
+            'error_note:ntext',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{download}',
+                'buttons' => [
+                    'download' => function ($url, ReportQueue $model) {
+                            if ($model->status === ReportQueue::STATUS_COMPLETED && $model->path) {
+                                return Html::a('Download', [$model->path], [
+                                    'class' => 'btn btn-primary',
+                                    'title' => 'Download File',
+                                    'data-pjax' => '0',
+                                ]);
+                            }
+                        },
+                ],
             ],
         ],
-    ],
-]); ?>
+    ]); ?>
 
 
     <?php Pjax::end(); ?>
