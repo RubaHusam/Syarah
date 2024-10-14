@@ -10,7 +10,7 @@ $params = array_merge(
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -29,6 +29,15 @@ return [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
+            ],
+        ],
+        'queue' => [
+            'class' => \yii\queue\db\Queue::class,
+            'db' => 'db', // Database connection component
+            'tableName' => '{{%queue}}', // Name of the table to store queue data
+            'channel' => 'default', // Queue channel
+            'mutex' => [
+                'class' => \yii\mutex\MysqlMutex::class, // Use appropriate mutex for your DB
             ],
         ],
     ],

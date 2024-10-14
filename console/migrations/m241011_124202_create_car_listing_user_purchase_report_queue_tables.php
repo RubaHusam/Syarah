@@ -49,7 +49,7 @@ class m241011_124202_create_car_listing_user_purchase_report_queue_tables extend
 
         $this->createTable('reportQueue', [
             'id' => $this->primaryKey(),
-            'path' => $this->string(255)->notNull(),
+            'path' => $this->string(255),
             'status' => "ENUM('submitted', 'pending', 'completed', 'failed') NOT NULL DEFAULT 'submitted'",
             'error_note' => $this->text(),
         ]);

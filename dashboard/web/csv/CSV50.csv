@@ -1,0 +1,12 @@
+ID,Title,Make,Model,Year,Price,Mileage,Status
+34,"2021 Ford Explorer XLT",Ford,Explorer,2021,48900.00,32000.00,sold
+35,"2020 Nissan Rogue SV",Nissan,Rogue,2020,28500.00,25000.00,sold
+39,"2021 Mercedes-Benz GLC 300",Mercedes-Benz,GLC,2021,52900.00,22000.00,sold
+43,"2021 Kia Sorento SX",Kia,Sorento,2021,39400.00,29000.00,sold
+44,"2020 Subaru Forester Premium",Subaru,Forester,2020,30900.00,35000.00,available
+47,"2021 Chevrolet Tahoe LT",Chevrolet,Tahoe,2021,64500.00,18000.00,available
+49,"2020 Mazda CX-5 Touring",Mazda,CX-5,2020,30900.00,32000.00,available
+52,"2021 Volvo XC90 T6 Inscription",Volvo,XC90,2021,71900.00,16000.00,available
+54,"2020 Honda Passport Elite",Honda,Passport,2020,40900.00,37000.00,available
+56,"2021 BMW X3 M40i",BMW,X3,2021,62900.00,20000.00,available
+58,"2020 Acura MDX SH-AWD",Acura,MDX,2020,45900.00,40000.00,available

@@ -2,19 +2,16 @@
 
 namespace dashboard\controllers;
 
-use common\models\CarListing;
-use common\models\CarListingSearch;
 use common\models\ReportQueue;
-use dashboard\models\CreateCsvJob;
-use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CarListingController implements the CRUD actions for CarListing model.
+ * ReportQueueController implements the CRUD actions for ReportQueue model.
  */
-class CarListingController extends Controller
+class ReportQueueController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,54 +32,33 @@ class CarListingController extends Controller
     }
 
     /**
-     *
-     * If creation is successful, the browser will be redirected to the 'report-queue/index' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionFilter()
-    {
-        $searchModel = new CarListingSearch();
-        $reportModel = new ReportQueue();
-        $respons=$this->request->post();
-
-        if ($respons) {
-            $filteredData = $searchModel->searchForCSV($respons, 'admin');
-            $reportName = $respons['ReportQueue']['name'] ?? null;
-            $reportModel->name = $reportName;
-            $reportModel->status = ReportQueue::STATUS_SUBMITTED;
-            $reportModel->save();
-            $jobId = Yii::$app->queue->push(new CreateCsvJob([
-                'reportId' => $reportModel->id,
-                'filteredData' => $filteredData,
-            ]));
-            return $this->redirect(['report-queue/index']);
-
-        }
-
-        return $this->render('filter', [
-            'searchModel' => $searchModel,
-            'reportModel' => $reportModel,
-        ]);
-    }
-
-    /**
-     * Lists all CarListing models.
+     * Lists all ReportQueue models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CarListingSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams, 'admin');
+        $dataProvider = new ActiveDataProvider([
+            'query' => ReportQueue::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single CarListing model.
+     * Displays a single ReportQueue model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -95,13 +71,13 @@ class CarListingController extends Controller
     }
 
     /**
-     * Creates a new CarListing model.
+     * Creates a new ReportQueue model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new CarListing();
+        $model = new ReportQueue();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -117,7 +93,7 @@ class CarListingController extends Controller
     }
 
     /**
-     * Updates an existing CarListing model.
+     * Updates an existing ReportQueue model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -137,7 +113,7 @@ class CarListingController extends Controller
     }
 
     /**
-     * Deletes an existing CarListing model.
+     * Deletes an existing ReportQueue model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -151,15 +127,15 @@ class CarListingController extends Controller
     }
 
     /**
-     * Finds the CarListing model based on its primary key value.
+     * Finds the ReportQueue model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return CarListing the loaded model
+     * @return ReportQueue the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CarListing::findOne(['id' => $id])) !== null) {
+        if (($model = ReportQueue::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

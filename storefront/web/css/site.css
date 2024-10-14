@@ -146,3 +146,23 @@ a.desc:after {
     background-color: #007bff; 
     color: white; 
 }
+
+.footer .navbar-nav .nav-link {
+    padding: 0 20px;
+    font-size: 16px;
+}
+
+
+.navbar-nav .nav-link {
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+header img {
+    max-height: 40px;
+}
+
+.header-padding {
+    padding-left: 150px;  
+    padding-right: 150px; 
+}

@@ -72,5 +72,43 @@ class CarListingSearch extends CarListing
 
         return $dataProvider;
     }
+
+
+    public function searchForCSV($params, $user)
+    {
+        $query = CarListing::find();
+        if ($user == 'user')
+            $query->where(['status' => CarListing::STATUS_AVAILABLE]);
+
+        $this->load($params);
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'mileage' => $this->mileage,
+        ]);
+
+        if (!empty($this->year_min)) {
+            $query->andFilterWhere(['>=', 'year', $this->year_min]);
+        }
+        if (!empty($this->year_max)) {
+            $query->andFilterWhere(['<=', 'year', $this->year_max]);
+        }
+
+        if (!empty($this->price_min)) {
+            $query->andFilterWhere(['>=', 'price', $this->price_min]);
+        }
+        if (!empty($this->price_max)) {
+            $query->andFilterWhere(['<=', 'price', $this->price_max]);
+        }
+
+        $query->andFilterWhere(['like', 'make', $this->make])
+            ->andFilterWhere(['like', 'model', $this->model])
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'title', $this->title]);
+
+
+
+        return $query->all();
+    }
 }
 

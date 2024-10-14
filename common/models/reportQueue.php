@@ -8,11 +8,12 @@ use Yii;
  * This is the model class for table "reportQueue".
  *
  * @property int $id
+ * @property string $name
  * @property string $path
  * @property string $status
  * @property string|null $error_note
  */
-class reportQueue extends \yii\db\ActiveRecord
+class ReportQueue extends \yii\db\ActiveRecord
 {
     const STATUS_SUBMITTED = "submitted";
     const STATUS_PENDING = "pending";
@@ -34,10 +35,11 @@ class reportQueue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['path'], 'required'],
+            [['name'], 'required'],
             [['error_note'], 'string'],
             ['status', 'in', 'range' => [self::STATUS_SUBMITTED, self::STATUS_PENDING, self::STATUS_COMPLETED, self::STATUS_FAILED]],
             [['path'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -48,6 +50,7 @@ class reportQueue extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'name' => 'Name',
             'path' => 'Path',
             'status' => 'Status',
             'error_note' => 'Error Note',
