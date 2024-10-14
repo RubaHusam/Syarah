@@ -19,8 +19,9 @@ class CarListingSearch extends CarListing
     public function rules()
     {
         return [
-            [['id', 'year', 'price', 'mileage'], 'integer'],
-            [['make', 'model', 'title', 'description','status'], 'safe'],
+            [['id', 'year'], 'integer'],
+            [['price','mileage'], 'number'],
+            [['make', 'model', 'title', 'description', 'status'], 'safe'],
             [['year_min', 'year_max', 'price_min', 'price_max'], 'integer'],
         ];
     }
@@ -44,31 +45,7 @@ class CarListingSearch extends CarListing
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'mileage' => $this->mileage,
-        ]);
-
-        if (!empty($this->year_min)) {
-            $query->andFilterWhere(['>=', 'year', $this->year_min]);
-        }
-        if (!empty($this->year_max)) {
-            $query->andFilterWhere(['<=', 'year', $this->year_max]);
-        }
-
-        if (!empty($this->price_min)) {
-            $query->andFilterWhere(['>=', 'price', $this->price_min]);
-        }
-        if (!empty($this->price_max)) {
-            $query->andFilterWhere(['<=', 'price', $this->price_max]);
-        }
-
-        $query->andFilterWhere(['like', 'make', $this->make])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'title', $this->title]);
-
-
+        $query = $this->filterDate($query);
 
         return $dataProvider;
     }
@@ -82,6 +59,64 @@ class CarListingSearch extends CarListing
 
         $this->load($params);
 
+        $query = $this->filterDate($query);
+
+        return $query->all();
+    }
+
+    public function totalSales($params)
+    {
+        $query = CarListing::find();
+
+        $this->load($params);
+
+        $query = $this->filterDate($query);
+        $total_sales = $query->andFilterWhere(['status' => CarListing::STATUS_SOLD])->sum('price') ?: 0;
+        return $total_sales;
+    }
+
+    public function soldCars($params)
+    {
+        $query = CarListing::find();
+
+        $this->load($params);
+
+        $query = $this->filterDate($query);
+        $sold_cars = $query->andFilterWhere(['status' => CarListing::STATUS_SOLD])->count() ?: 0;
+        return $sold_cars;
+    }
+    public function availableCars($params)
+    {
+        $query = CarListing::find();
+
+        $this->load($params);
+
+        $query = $this->filterDate($query);
+        $available_cars = $query->andFilterWhere(['status' => CarListing::STATUS_AVAILABLE])->count() ?: 0;
+        return $available_cars;
+    }
+
+    public function mostSalesModels($params)
+    {
+        $query = CarListing::find();
+
+        $this->load($params);
+
+        $query = $this->filterDate($query);
+        $query->andFilterWhere(['status' => CarListing::STATUS_SOLD]);
+        
+        $mostSalesModels = $query->select([ 'model', 'COUNT(*) AS sold_count'])
+        ->groupBy(['model'])
+        ->orderBy(['sold_count' => SORT_DESC])
+        ->limit(1)
+        ->asArray()
+        ->all();
+    
+        return !empty($mostSalesModels) ? $mostSalesModels[0]['model'] : "";
+    }
+
+    public function filterDate($query)
+    {
         $query->andFilterWhere([
             'id' => $this->id,
             'mileage' => $this->mileage,
@@ -103,12 +138,14 @@ class CarListingSearch extends CarListing
 
         $query->andFilterWhere(['like', 'make', $this->make])
             ->andFilterWhere(['like', 'model', $this->model])
+            ->andFilterWhere(['like', 'year', $this->year])
+            ->andFilterWhere(['like', 'price', $this->price])
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'title', $this->title]);
 
-
-
-        return $query->all();
+        return $query;
     }
+
+
 }
 

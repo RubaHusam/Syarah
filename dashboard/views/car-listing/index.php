@@ -17,16 +17,31 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="car-listing-index">
 
 
-<div class="d-flex justify-content-between align-items-center ">
-    <div>
-        <h1 class="d-inline"><?= Html::encode($this->title) ?></h1>
+    <div class="d-flex justify-content-between align-items-center ">
+        <div>
+            <h1 class="d-inline"><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div>
+            <?= Html::a('Create Car Listing', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
-    <div>
-        <?= Html::a('Create Car Listing', ['create'], ['class' => 'btn btn-success']) ?>
+
+    <div class="d-flex justify-content-around mt-3 ">
+        <div class="alert alert-info text-center mt-3">
+            <h4>Total Sales: <?= Html::encode($totalSales) ?></h4>
+        </div>
+        <div class="alert alert-success text-center mt-3">
+            <h4>Most Sales Models: <?= Html::encode($mostPopularModels) ?></h4>
+        </div>
+        <div class="alert alert-warning text-center mt-3">
+            <h4>#Sold Cars: <?= Html::encode($soldCars) ?></h4>
+        </div>
+        <div class="alert alert-danger text-center mt-3">
+            <h4>#Available Cars: <?= Html::encode($availableCars) ?></h4>
+        </div>
     </div>
-</div>
-   
-<?php Pjax::begin(); ?>
+
+    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="pagination-container text-right mb-3 mt-3">
@@ -39,30 +54,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Image',
                     'format' => 'raw', // Enable raw HTML output
                     'value' => function (CarListing $model) {
-                        return Html::img('https://cdn.syarah.com/photos-thumbs/online-v1/0x960/online/posts/212675/orignal-1725530370-474.jpg', [
-                            'alt' => 'Car Image: ' . Html::encode($model->title),
-                            'class' => 'img-fluid rounded',
-                            'style' => 'width: 100px; height: auto;', // Adjust size as needed
-                        ]);
-                    },
+                                return Html::img('https://cdn.syarah.com/photos-thumbs/online-v1/0x960/online/posts/212675/orignal-1725530370-474.jpg', [
+                                    'alt' => 'Car Image: ' . Html::encode($model->title),
+                                    'class' => 'img-fluid rounded',
+                                    'style' => 'width: 100px; height: auto;', // Adjust size as needed
+                                ]);
+                            },
                 ],
                 'title',
                 'make',
                 'model',
+                'price',
                 'year',
                 [
                     'attribute' => 'status',
                     'format' => 'raw',
                     'value' => function (CarListing $model) {
-                        $statusLabel = Html::encode($model->status);
-                        $class = $model->status === CarListing::STATUS_SOLD ? 'text-danger' : 'text-success'; 
-                        return Html::tag('span', $statusLabel, ['class' => $class]);
-                    },
-                ],                [
+                                $statusLabel = Html::encode($model->status);
+                                $class = $model->status === CarListing::STATUS_SOLD ? 'text-danger' : 'text-success';
+                                return Html::tag('span', $statusLabel, ['class' => $class]);
+                            },
+                ],
+                [
                     'class' => ActionColumn::className(),
                     'urlCreator' => function ($action, CarListing $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
-                    },
+                                return Url::toRoute([$action, 'id' => $model->id]);
+                            },
                 ],
             ],
             'pager' => [

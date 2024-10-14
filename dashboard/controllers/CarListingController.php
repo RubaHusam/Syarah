@@ -74,10 +74,18 @@ class CarListingController extends Controller
     {
         $searchModel = new CarListingSearch();
         $dataProvider = $searchModel->search($this->request->queryParams, 'admin');
+        $totalSales= $searchModel->totalSales($this->request->queryParams);
+        $mostPopularModels= $searchModel->mostSalesModels($this->request->queryParams);
+        $soldCars= $searchModel->soldCars($this->request->queryParams);
+        $availableCars= $searchModel->availableCars($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'totalSales' => $totalSales,
+            'mostPopularModels' => $mostPopularModels,
+            'soldCars' => $soldCars,
+            'availableCars' => $availableCars,
         ]);
     }
 

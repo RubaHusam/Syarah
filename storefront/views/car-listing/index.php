@@ -13,8 +13,6 @@ use yii\widgets\ListView;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="car-listing-index container mt-4">
-
-
     <div class="row">
         <div class="col-md-3">
             <h4>Filters</h4>
