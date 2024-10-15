@@ -1,64 +1,127 @@
-<<<<<<< HEAD
 # Syarah
-=======
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
     <br>
 </p>
+<h1 align="center">Syarah – Car Store</h1>
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+<p>Welcome to <strong>Syarah</strong>, a car store application built using the Yii2 Advanced Project structure. 
+This project enables <strong>admins</strong> to manage car listings and <strong>buyers</strong> to browse and purchase vehicles. 
+Follow the instructions below to set up and run the project locally.</p>
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+---
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#requirements">Requirements</a></li>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#database-setup">Database Setup</a></li>
+  <li><a href="#running-the-project">Running the Project</a></li>
+  <li><a href="#creating-admin-user">Creating Admin User</a></li>
+  <li><a href="#running-queues">Running Queues</a></li>
+  <li><a href="#redis-setup">Redis Setup</a></li>
+</ul>
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+---
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+<h2 id="requirements">Requirements</h2>
+<p>Before getting started, make sure you have the following installed on your machine:</p>
+<ul>
+  <li>PHP 8.0 or higher</li>
+  <li>Composer</li>
+  <li>MySQL / MariaDB</li>
+  <li>Redis</li>
+  <li><strong>Optional:</strong> Homebrew (for Redis installation on Mac)</li>
+</ul>
 
-DIRECTORY STRUCTURE
--------------------
+---
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both dashboard and storefront
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-dashboard
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains dashboard configurations
-    controllers/         contains Web controller classes
-    models/              contains dashboard-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for dashboard application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-storefront
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains storefront configurations
-    controllers/         contains Web controller classes
-    models/              contains storefront-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for storefront application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains storefront widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
->>>>>>> master
+<h2 id="installation">Installation</h2>
+<p>Follow these steps to clone the project and install dependencies:</p>
+
+<ol>
+  <li><strong>Clone the repository from GitHub:</strong>
+    <pre><code>git clone &lt;repository_url&gt; syarah
+cd syarah
+    </code></pre>
+  </li>
+
+  <li><strong>Install PHP dependencies using Composer:</strong>
+    <pre><code>composer install</code></pre>
+  </li>
+</ol>
+
+---
+
+<h2 id="database-setup">Database Setup</h2>
+
+<ol>
+  <li><strong>Create the "syarah" database:</strong>
+    <pre><code>CREATE DATABASE syarah CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;</code></pre>
+  </li>
+   <li><strong>Change confiq from environments/dev/common/confiq to your username and password:</strong>
+    <pre><code> 'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => 'mysql:host=localhost;dbname=syarah', 
+            'username' => 'syarah', 
+            'password' => 'syarah2024',
+            'charset' => 'utf8mb4',
+        ],</code></pre>
+  </li>
+
+  <li><strong>Run Migrations:</strong>
+    <pre><code>php yii migrate</code></pre>
+  </li>
+</ol>
+
+---
+
+<h2 id="running-the-project">Running the Project</h2>
+<p>You can run the <strong>Dashboard</strong> and <strong>Storefront</strong> services on different ports as follows:</p>
+
+<ol>
+  <li><strong>Start the Dashboard (Admin Panel):</strong>
+    <pre><code>php yii serve --port=8082 --docroot=@dashboard/web</code></pre>
+  </li>
+
+  <li><strong>Start the Storefront (Client-facing Store):</strong>
+    <pre><code>php yii serve --port=8081 --docroot=@storefront/web</code></pre>
+  </li>
+</ol>
+
+<p>Access the project via:</p>
+<ul>
+  <li><strong>Dashboard:</strong> <a href="http://localhost:8082" target="_blank">http://localhost:8082</a></li>
+  <li><strong>Storefront:</strong> <a href="http://localhost:8081" target="_blank">http://localhost:8081</a></li>
+</ul>
+
+---
+
+<h2 id="creating-admin-user">Creating an Admin User</h2>
+<p>To create an admin user, run the following command:</p>
+<pre><code>php yii signin-admin/index &lt;username&gt; &lt;email@example.com&gt; &lt;password&gt;</code></pre>
+
+<p><strong>Example:</strong></p>
+<pre><code>php yii signin-admin/index admin admin@example.com securepassword</code></pre>
+
+---
+
+<h2 id="running-queues">Running Queues</h2>
+<p>If the application uses queues for background tasks, you can start the queue worker with:</p>
+<pre><code>php yii queue/run</code></pre>
+
+---
+
+<h2 id="redis-setup">Redis Setup</h2>
+<p>Redis is required for certain caching and queue functionalities. If you are using <strong>Homebrew</strong> on macOS, start Redis with:</p>
+<pre><code>brew services start redis</code></pre>
+
+<p>To stop Redis, use:</p>
+<pre><code>brew services stop redis</code></pre>
+
+
+
+
