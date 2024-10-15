@@ -110,7 +110,7 @@ cd syarah
 ---
 
 <h2 id="running-queues">Running Queues</h2>
-<p>If the application uses queues for background tasks, you can start the queue worker with:</p>
+<p>After added CSV file, you can start the queue worker with:</p>
 <pre><code>php yii queue/run</code></pre>
 
 ---
